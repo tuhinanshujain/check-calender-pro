@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">checkcalendar-pro</string>
+    <string name="title_activity_main">checkcalendar-pro</string>
+    <string name="package_name">com.checkcalendar.app</string>
+    <string name="custom_url_scheme">com.checkcalendar.app</string>
+</resources>
