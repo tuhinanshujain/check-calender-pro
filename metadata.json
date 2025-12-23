@@ -1,0 +1,7 @@
+{
+  "name": "CheckCalendar Pro",
+  "description": "A beautiful, habit-tracking calendar app designed to help you maintain streaks and reach your goals with AI-powered insights.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
