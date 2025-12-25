@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Auth } from './components/Auth';
 import { Calendar } from './components/Calendar';
@@ -11,6 +10,7 @@ import { Calendar as CalendarType, ViewType } from './types';
 import { Icons } from './constants';
 
 const App: React.FC = () => {
+  // 1. STATE DEFINITIONS (Must be here!)
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [authToken, setAuthToken] = useState<string | null>(null);
   const [activeView, setActiveView] = useState<ViewType>('Home');
@@ -19,6 +19,7 @@ const App: React.FC = () => {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [newHabitName, setNewHabitName] = useState('');
 
+  // 2. AUTH CHECK (Fixed Logic)
   useEffect(() => {
     const savedToken = localStorage.getItem('auth_token');
     const savedCals = localStorage.getItem('app_calendars');
@@ -30,21 +31,14 @@ const App: React.FC = () => {
         const parsed = JSON.parse(savedCals);
         setCalendars(parsed);
         if (parsed.length > 0) setActiveCalendarId(parsed[0].id);
-      } else {
-        // Sample data for demo
-        const sample: CalendarType = {
-          id: 'sample-1',
-          name: 'Exercise',
-          color: '#3b82f6',
-          checks: [new Date().toISOString().split('T')[0]],
-          createdAt: new Date().toISOString()
-        };
-        setCalendars([sample]);
-        setActiveCalendarId(sample.id);
       }
+    } else {
+      // Correctly set to false if no token found
+      setIsAuthenticated(false);
     }
   }, []);
 
+  // 3. SAVE CALENDARS EFFECT
   useEffect(() => {
     if (calendars.length > 0) {
       localStorage.setItem('app_calendars', JSON.stringify(calendars));
