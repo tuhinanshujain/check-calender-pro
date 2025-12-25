@@ -404,6 +404,19 @@ The Premium Version is a one-time purchase that grants access to advanced featur
                 }} 
               />
               <SettingRow 
+                icon={<Icons.SwitchVertical className="w-5 h-5" />} 
+                label="Log Out" 
+                hasArrow={false}
+                onClick={() => {
+                   if(confirm("Are you sure you want to log out?")) {
+                      // This clears the token and forces the app to reload
+                      // enabling the Login screen to appear again.
+                      localStorage.removeItem('auth_token');
+                      window.location.reload(); 
+                   }
+                }} 
+              />
+              <SettingRow 
                 icon={<Icons.Trash className="w-5 h-5" />} 
                 label="Delete Account" 
                 description="Required to provide if account creation is supported"

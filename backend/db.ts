@@ -21,6 +21,9 @@ export const initDb = async () => {
     CREATE TABLE IF NOT EXISTS users (
       id SERIAL PRIMARY KEY,
       email VARCHAR(255) UNIQUE NOT NULL,
+      name VARCHAR(255),
+      mobile VARCHAR(50),
+      city VARCHAR(100),
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
 

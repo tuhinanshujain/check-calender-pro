@@ -14,17 +14,27 @@ export const Auth: React.FC<AuthProps> = ({ onLogin }) => {
   const [resendTimer, setResendTimer] = useState(0);
 
   const isLocal = ['localhost', '127.0.0.1'].includes(window.location.hostname);
-  const API_BASE = isLocal ? 'http://localhost:3001' : '';
+  const API_BASE = 'https://checkcalendar-backend.onrender.com';
 
   useEffect(() => {
-    let interval: number;
-    if (resendTimer > 0) {
-      interval = window.setInterval(() => {
-        setResendTimer((prev) => prev - 1);
-      }, 1000);
+  const savedToken = localStorage.getItem('auth_token');
+  const savedCals = localStorage.getItem('app_calendars');
+  
+  if (savedToken) {
+    setAuthToken(savedToken);
+    setIsAuthenticated(true);
+    
+    if (savedCals) {
+      const parsed = JSON.parse(savedCals);
+      setCalendars(parsed);
+      if (parsed.length > 0) setActiveCalendarId(parsed[0].id);
     }
-    return () => clearInterval(interval);
-  }, [resendTimer]);
+  } else {
+    // DO NOT set setIsAuthenticated(true) here!
+    // Just leave it false, so the <Auth /> component renders.
+    setIsAuthenticated(false);
+  }
+}, []);
 
   const handleRequestOtp = async (e: React.FormEvent) => {
     e.preventDefault();
